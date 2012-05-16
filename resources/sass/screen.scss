@@ -49,3 +49,29 @@ body {
         }
     }
 }
+
+.touch-points {
+    .point {
+        position: absolute;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        background: rgba(#FFF, 0.5);
+        color: #999;
+        text-align: center;
+        line-height: 50px;
+        @include border-radius(25px);
+        margin-bottom: 20px;
+        
+        @for $i from 1 through 5 {
+            &:nth-child(#{$i}) {
+                top: 20px + ($i - 1) * 70px;
+            }
+        }
+        
+        &.active {
+            color: $red;
+            background: #FFF;
+        }
+    }
+}

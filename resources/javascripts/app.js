@@ -2,10 +2,20 @@
 (function() {
 
   $(function() {
-    return $('a').on('touchstart', function(e) {
+    var $console, touchPointSize;
+    $('a').on('touchstart', function(e) {
       return $(this).addClass('touched');
     }).on('touchend touchmove', function(e) {
       return $(this).removeClass('touched');
+    });
+    $console = $('#console');
+    touchPointSize = 50;
+    return $(document).on('tap', '.draggable', function(e) {
+      return $(this).toggleClass('active');
+    }).on('touchmove', '.draggable', function(e) {
+      $console.text("" + ($(e.target).text()) + ": " + e.touches[0].pageX + "," + e.touches[0].pageY);
+      e.target.style.left = "" + (e.touches[0].pageX - touchPointSize / 2) + "px";
+      return e.target.style.top = "" + (e.touches[0].pageY - touchPointSize / 2) + "px";
     });
   });
 
