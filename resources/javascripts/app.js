@@ -3,12 +3,12 @@
 
   $(function() {
     var $console, touchPointSize;
+    $console = $('#console');
     $('a').on('touchstart', function(e) {
       return $(this).addClass('touched');
     }).on('touchend touchmove', function(e) {
       return $(this).removeClass('touched');
     });
-    $console = $('#console');
     touchPointSize = 50;
     return $(document).on('tap', '.draggable', function(e) {
       return $(this).toggleClass('active');

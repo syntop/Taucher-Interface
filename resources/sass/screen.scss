@@ -62,7 +62,9 @@ body {
         line-height: 50px;
         @include border-radius(25px);
         margin-bottom: 20px;
-        @include single-transition(color background, 50ms, linear);
+        @include transition-property(color background);
+        @include transition-duration(100ms);
+        @include transition-timing-function(linear);
         
         @for $i from 1 through 5 {
             &:nth-child(#{$i}) {

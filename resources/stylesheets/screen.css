@@ -128,11 +128,21 @@ body {
   -o-border-radius: 25px;
   border-radius: 25px;
   margin-bottom: 20px;
-  -webkit-transition: color background 50ms linear;
-  -moz-transition: color background 50ms linear;
-  -ms-transition: color background 50ms linear;
-  -o-transition: color background 50ms linear;
-  transition: color background 50ms linear;
+  -webkit-transition-property: color, background;
+  -moz-transition-property: color, background;
+  -ms-transition-property: color, background;
+  -o-transition-property: color, background;
+  transition-property: color background;
+  -webkit-transition-duration: 100ms;
+  -moz-transition-duration: 100ms;
+  -ms-transition-duration: 100ms;
+  -o-transition-duration: 100ms;
+  transition-duration: 100ms;
+  -webkit-transition-timing-function: linear;
+  -moz-transition-timing-function: linear;
+  -ms-transition-timing-function: linear;
+  -o-transition-timing-function: linear;
+  transition-timing-function: linear;
 }
 .touch-points .point:nth-child(1) {
   top: 20px;

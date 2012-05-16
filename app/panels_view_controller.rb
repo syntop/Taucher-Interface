@@ -25,7 +25,8 @@ class PanelsViewController < UIViewController
       webview.scalesPageToFit = false
       webview.scrollView.scrollEnabled = false
       webview.scrollView.bounces = false
-      webview.backgroundColor = UIColor.blackColor
+      webview.backgroundColor = UIColor.whiteColor
+      webview.setAlpha(0)
       webview.delegate = self
       @scrollView.addSubview(webview)
       @webviews << webview
@@ -84,6 +85,14 @@ class PanelsViewController < UIViewController
       return false
     end
     return true
+  end
+  
+  def webViewDidFinishLoad(webView)
+    webView.alpha = 0
+    UIView.beginAnimations(nil, context:nil)
+    UIView.setAnimationDuration(1)
+    webView.setAlpha(1)
+    UIView.commitAnimations()
   end
   
   
