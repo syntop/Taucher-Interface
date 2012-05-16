@@ -26,6 +26,7 @@ class PanelsViewController < UIViewController
       webview.scrollView.scrollEnabled = false
       webview.scrollView.bounces = false
       webview.backgroundColor = UIColor.blackColor
+      webview.delegate = self
       @scrollView.addSubview(webview)
       @webviews << webview
     end
@@ -75,5 +76,15 @@ class PanelsViewController < UIViewController
   def scrollToActivePanel
     @scrollView.setContentOffset([@activePanel * @scrollView.frame.size.width, 0], animated:true)
   end
+  
+  def webView(webView, shouldStartLoadWithRequest:request, navigationType:navigationType)
+    if request.URL.scheme == 'taucher'
+      NSLog(request.URL.host)
+      NSLog(request.URL.path[1,100])
+      return false
+    end
+    return true
+  end
+  
   
 end
