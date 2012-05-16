@@ -128,6 +128,11 @@ body {
   -o-border-radius: 25px;
   border-radius: 25px;
   margin-bottom: 20px;
+  -webkit-transition: color background 50ms linear;
+  -moz-transition: color background 50ms linear;
+  -ms-transition: color background 50ms linear;
+  -o-transition: color background 50ms linear;
+  transition: color background 50ms linear;
 }
 .touch-points .point:nth-child(1) {
   top: 20px;
