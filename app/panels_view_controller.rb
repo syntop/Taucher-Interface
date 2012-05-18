@@ -2,7 +2,8 @@ class PanelsViewController < UIViewController
   def loadView
     @panels = [
       'panel-01',
-      'panel-02'
+      'panel-02',
+      'panel-03'
     ]
     @activePanel = 0
     @webviews = []
