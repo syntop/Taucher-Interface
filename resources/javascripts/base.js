@@ -4,12 +4,4 @@
 
   exports = window;
 
-  $(function() {
-    return exports.console = {
-      log: function(msg) {
-        return $('#console').html(msg);
-      }
-    };
-  });
-
 }).call(this);

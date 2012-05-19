@@ -2,8 +2,8 @@ class PanelsViewController < UIViewController
   def loadView
     @panels = [
       'panel-01',
+      'panel-03',
       'panel-02',
-      'panel-03'
     ]
     @activePanel = 0
     @webviews = []
@@ -48,6 +48,10 @@ class PanelsViewController < UIViewController
     @next.frame = [[frame.size.width-button_size, frame.size.height-button_size], [button_size, button_size]]
     @next.addTarget(self, action:'nextTapped', forControlEvents:UIControlEventTouchUpInside)
     self.view.addSubview(@next)
+    
+    @osc = OSCConnection.alloc.init
+    @osc.delegate = self
+    @osc.connectToHost('10.0.1.7', port:11000, protocol:0, error:nil)
   end
   
   def viewDidLoad
@@ -81,8 +85,10 @@ class PanelsViewController < UIViewController
   
   def webView(webView, shouldStartLoadWithRequest:request, navigationType:navigationType)
     if request.URL.scheme == 'taucher'
-      NSLog(request.URL.host)
-      NSLog(request.URL.path[1,100])
+      message = OSCMutableMessage.alloc.init
+      message.address = "/#{request.URL.host}:#{request.URL.path[1,100]}"
+      message.addString 'wtf'
+      @osc.sendPacket(message)
       return false
     end
     return true

@@ -2,17 +2,15 @@
 (function() {
 
   $(function() {
-    return $(window).on('devicemotion', function(e) {
-      var key, keys, x, _i, _len;
-      console.log(e.data);
-      return;
-      x = [];
-      keys = ['accelerationIncludingGravity', 'rotationRate', 'acceleration', 'webkitCompassHeading'];
-      for (_i = 0, _len = keys.length; _i < _len; _i++) {
-        key = keys[_i];
-        x.push("" + key + ": " + e[key]);
+    var $compass;
+    $compass = $('#compass');
+    return $(window).on('deviceorientation', function(e) {
+      if (e.webkitCompassHeading !== 0) {
+        $compass.css({
+          '-webkit-transform': "rotate(-" + e.webkitCompassHeading + "deg)"
+        });
+        return location.href = "taucher://compass/" + e.webkitCompassHeading;
       }
-      return console.log(x.join('<br>'));
     });
   });
 

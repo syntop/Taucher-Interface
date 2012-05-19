@@ -167,3 +167,9 @@ body {
   color: #cc0033;
   background: #FFF;
 }
+
+#compass {
+  width: 10px;
+  height: 100px;
+  background: #FFF;
+}

@@ -9,4 +9,13 @@ Motion::Project::App.setup do |app|
   app.interface_orientations = [:landscape_left, :landscape_right]
   app.icons = ['icon-144.png']
   app.prerendered_icon = true
+  
+  app.vendor_project('vendor/CocoaOSC', 
+    :xcode
+    # :xcodeproject => "CocoaOSC.xcodeproj",
+    # :target => "CocoaOSC",
+    # :products => ['libCocoaOSC.a'],
+    # :headers_dir => 'CocoaOSC'
+  )
+  app.frameworks << 'CFNetwork'
 end

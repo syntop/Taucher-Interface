@@ -1,6 +1,7 @@
 exports = window
 
-$ ->
-    exports.console =
-        log: (msg) ->
-            $('#console').html(msg)
+# $ ->
+#     if (exports.console)
+#         exports.console =
+#             log: (msg) ->
+#                 $('#console').html(msg)

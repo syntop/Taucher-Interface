@@ -9,7 +9,8 @@
     }).on('touchmove', '.draggable', function(e) {
       console.log("" + ($(e.target).text()) + ": " + e.touches[0].pageX + "," + e.touches[0].pageY);
       e.target.style.left = "" + (e.touches[0].pageX - touchPointSize / 2) + "px";
-      return e.target.style.top = "" + (e.touches[0].pageY - touchPointSize / 2) + "px";
+      e.target.style.top = "" + (e.touches[0].pageY - touchPointSize / 2) + "px";
+      return location.href = "taucher://move/" + ($(e.target).text()) + ":" + e.touches[0].pageX + "-" + e.touches[0].pageY;
     });
   });
 
