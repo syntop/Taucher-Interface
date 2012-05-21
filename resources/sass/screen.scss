@@ -35,10 +35,16 @@ body {
     
     .button {
         display: block;
+        width: 100%;
+        border: 0;
+        margin: 0;
+        padding: 0;
         margin-bottom: 20px;
         background: #FFF;
         color: $red;
+        font: inherit;
         text-align: center;
+        text-transform: inherit;
         line-height: 80px;
         text-decoration: none;
         @include border-radius(2px);

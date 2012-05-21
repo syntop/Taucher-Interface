@@ -1,5 +1,9 @@
 $:.unshift("/Library/RubyMotion/lib")
 require 'motion/project'
+require 'motion-testflight'
+require 'YAML'
+
+local_config = YAML::load(File.open('local_config.yml'))
 
 Motion::Project::App.setup do |app|
   # Use `rake config' to see complete project settings.
@@ -18,4 +22,8 @@ Motion::Project::App.setup do |app|
     # :headers_dir => 'CocoaOSC'
   )
   app.frameworks << 'CFNetwork'
+  
+  app.testflight.sdk = 'vendor/TestFlightSDK'
+  app.testflight.api_token = local_config['testflight_api_token']
+  app.testflight.team_token = local_config['testflight_team_token']
 end

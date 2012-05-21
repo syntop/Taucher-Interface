@@ -1,8 +1,14 @@
 $ ->
     $compass = $('#compass')
+    prevHeading = null
     
     $(window).on 'deviceorientation', (e) ->
-        if e.webkitCompassHeading != 0
+        heading = Math.round(e.webkitCompassHeading)
+        if e.webkitCompassHeading != 0 && heading != prevHeading
             $compass.css
                 '-webkit-transform': "rotate(-#{e.webkitCompassHeading}deg)"
-            location.href = "taucher://compass/#{e.webkitCompassHeading}"
+            msg = new Message()
+            msg.address = '/compass'
+            msg.addFloat e.webkitCompassHeading
+            msg.send()
+            prevHeading = heading

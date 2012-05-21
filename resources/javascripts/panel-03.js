@@ -2,14 +2,21 @@
 (function() {
 
   $(function() {
-    var $compass;
+    var $compass, prevHeading;
     $compass = $('#compass');
+    prevHeading = null;
     return $(window).on('deviceorientation', function(e) {
-      if (e.webkitCompassHeading !== 0) {
+      var heading, msg;
+      heading = Math.round(e.webkitCompassHeading);
+      if (e.webkitCompassHeading !== 0 && heading !== prevHeading) {
         $compass.css({
           '-webkit-transform': "rotate(-" + e.webkitCompassHeading + "deg)"
         });
-        return location.href = "taucher://compass/" + e.webkitCompassHeading;
+        msg = new Message();
+        msg.address = '/compass';
+        msg.addFloat(e.webkitCompassHeading);
+        msg.send();
+        return prevHeading = heading;
       }
     });
   });

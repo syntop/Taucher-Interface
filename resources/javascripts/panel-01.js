@@ -2,8 +2,15 @@
 (function() {
 
   $(function() {
-    return $('a').on('touchstart', function(e) {
+    return $('.button').on('touchstart', function(e) {
       return $(this).addClass('touched');
+    }).on('touchend', function(e) {
+      var msg;
+      if ($(this).is('.touched')) {
+        msg = new Message('/run-program');
+        msg.addInt(parseInt($(this).data('program'), 10));
+        return msg.send();
+      }
     }).on('touchend touchmove', function(e) {
       return $(this).removeClass('touched');
     });

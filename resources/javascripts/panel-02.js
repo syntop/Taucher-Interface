@@ -7,10 +7,14 @@
     return $(document).on('tap', '.draggable', function(e) {
       return $(this).toggleClass('active');
     }).on('touchmove', '.draggable', function(e) {
-      console.log("" + ($(e.target).text()) + ": " + e.touches[0].pageX + "," + e.touches[0].pageY);
+      var msg;
       e.target.style.left = "" + (e.touches[0].pageX - touchPointSize / 2) + "px";
       e.target.style.top = "" + (e.touches[0].pageY - touchPointSize / 2) + "px";
-      return location.href = "taucher://move/" + ($(e.target).text()) + ":" + e.touches[0].pageX + "-" + e.touches[0].pageY;
+      msg = new Message('/move');
+      msg.addInt(parseInt($(e.target).text(), 10));
+      msg.addInt(e.touches[0].pageX);
+      msg.addInt(e.touches[0].pageY);
+      return msg.send();
     });
   });
 

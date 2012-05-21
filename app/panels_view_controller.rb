@@ -2,8 +2,8 @@ class PanelsViewController < UIViewController
   def loadView
     @panels = [
       'panel-01',
-      'panel-03',
       'panel-02',
+      'panel-03',
     ]
     @activePanel = 0
     @webviews = []
@@ -51,7 +51,8 @@ class PanelsViewController < UIViewController
     
     @osc = OSCConnection.alloc.init
     @osc.delegate = self
-    @osc.connectToHost('10.0.1.7', port:11000, protocol:0, error:nil)
+    @oscErrorPtr = Pointer.new(:object)
+    @osc.connectToHost('10.0.1.206', port:11000, protocol:0, error:@oscErrorPtr)
   end
   
   def viewDidLoad
@@ -85,9 +86,35 @@ class PanelsViewController < UIViewController
   
   def webView(webView, shouldStartLoadWithRequest:request, navigationType:navigationType)
     if request.URL.scheme == 'taucher'
+      json = request.URL.path[1..-1]
+      data = json.dataUsingEncoding(1) # NSUTF8StringEncoding?
+      jsonError = Pointer.new(:object)
+      values = NSJSONSerialization.JSONObjectWithData(data, options:NSJSONReadingMutableContainers, error:jsonError)
+      
       message = OSCMutableMessage.alloc.init
-      message.address = "/#{request.URL.host}:#{request.URL.path[1,100]}"
-      message.addString 'wtf'
+      message.address = "/#{request.URL.host}"
+      
+      values.each do |value|
+        case value['type']
+          when 'string'
+            message.addString value['value']
+          when 'int'
+            message.addInt value['value']
+          when 'float'
+            message.addFloat value['value']
+          when 'bool'
+            message.addBool value['value']
+          when 'blob'
+            message.addBlob value['value']
+          when 'timetag'
+            message.addTimeTag value['value']
+          when 'impulse'
+            message.addImpulse
+          when 'null'
+            message.addNull
+        end
+      end
+      
       @osc.sendPacket(message)
       return false
     end
